@@ -227,10 +227,6 @@
 	cost = 3
 	no_coexistance_typecache = /obj/effect/proc_holder/spell/targeted/infinite_guns/gun
 
-/datum/spellbook_entry/barnyard
-	name = "Barnyard Curse"
-	spell_type = /obj/effect/proc_holder/spell/targeted/barnyardcurse
-
 /datum/spellbook_entry/charge
 	name = "Charge"
 	spell_type = /obj/effect/proc_holder/spell/targeted/charge
@@ -373,6 +369,13 @@
 	item_path = /obj/item/guardiancreator/choose/wizard
 	category = "Assistance"
 
+/datum/spellbook_entry/item/holocarp
+	name = "Holocarp Fishsticks"
+	desc = "A tasty treat of fishsticks. On consumption it will grant the user a holocarp guardian spirit, similar to regular guardian spirits. However it is possible to have multiple \
+	stands with this, even in conjunction with a regular guardian spirit from a tarot deck. You cannot choose the type of holocarp you get."
+	item_path = /obj/item/guardiancreator/carp
+	category = "Assistance"
+
 /datum/spellbook_entry/item/guardian/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
 	. = ..()
 	if(.)
@@ -425,7 +428,7 @@
 
 /datum/spellbook_entry/item/warpwhistle
 	name = "Warp Whistle"
-	desc = "A strange whistle that will transport you to a distant safe place on the station. There is a window of vulnerability at the begining of every use."
+	desc = "A strange whistle that will transport you to a distant safe place on the station. There is a window of vulnerability at the beginning of every use."
 	item_path = /obj/item/warpwhistle
 	category = "Mobility"
 	cost = 1
@@ -652,7 +655,7 @@
 	var/list/cat_dat = list()
 	for(var/category in categories)
 		cat_dat[category] = "<hr>"
-		dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=\ref[src];page=[category]'>[category]</a></li>"
+		dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[REF(src)];page=[category]'>[category]</a></li>"
 
 	dat += "<li><a><b>Points remaining : [uses]</b></a></li>"
 	dat += "</ul>"
@@ -663,11 +666,11 @@
 		E = entries[i]
 		spell_info += E.GetInfo()
 		if(E.CanBuy(user,src))
-			spell_info+= "<a href='byond://?src=\ref[src];buy=[i]'>[E.buy_word]</A><br>"
+			spell_info+= "<a href='byond://?src=[REF(src)];buy=[i]'>[E.buy_word]</A><br>"
 		else
 			spell_info+= "<span>Can't [E.buy_word]</span><br>"
 		if(E.CanRefund(user,src))
-			spell_info+= "<a href='byond://?src=\ref[src];refund=[i]'>Refund</A><br>"
+			spell_info+= "<a href='byond://?src=[REF(src)];refund=[i]'>Refund</A><br>"
 		spell_info += "<hr>"
 		if(cat_dat[E.category])
 			cat_dat[E.category] += spell_info

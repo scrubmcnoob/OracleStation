@@ -11,6 +11,7 @@ Clown
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
+	special_notice = "There is a difference between harmless pranks and griefing. Know it."
 
 	outfit = /datum/outfit/job/clown
 
@@ -23,7 +24,7 @@ Clown
 /datum/outfit/job/clown
 	name = "Clown"
 	jobtype = /datum/job/clown
-
+	id = /obj/item/card/id/job/clown
 	pda_slot = /obj/item/device/pda/clown
 	uniform = /obj/item/clothing/under/rank/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes
@@ -71,6 +72,7 @@ Mime
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
+	special_notice = "There is a difference between harmless pranks and griefing. Know it."
 
 	outfit = /datum/outfit/job/mime
 
@@ -83,7 +85,7 @@ Mime
 /datum/outfit/job/mime
 	name = "Mime"
 	jobtype = /datum/job/mime
-
+	id = /obj/item/card/id/job/mime
 	pda_slot = /obj/item/device/pda/mime
 	uniform = /obj/item/clothing/under/rank/mime
 	mask = /obj/item/clothing/mask/gas/mime
@@ -175,7 +177,7 @@ Lawyer
 /datum/outfit/job/lawyer
 	name = "Lawyer"
 	jobtype = /datum/job/lawyer
-
+	id = /obj/item/card/id/job/sec
 	pda_slot = /obj/item/device/pda/lawyer
 	ears = /obj/item/device/radio/headset/headset_sec
 	uniform = /obj/item/clothing/under/lawyer/bluesuit

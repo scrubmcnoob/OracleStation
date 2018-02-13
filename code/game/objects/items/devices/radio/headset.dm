@@ -161,7 +161,7 @@
 
 /obj/item/device/radio/headset/heads/hop
 	name = "\proper the head of personnel's headset"
-	desc = "The headset of the guy who will one day be captain. \nChannels are as follows: :u - supply, :v - service, :c - command."
+	desc = "The headset of the guy who will one day be captain. \nChannels are as follows: :v - service, :c - command."
 	icon_state = "com_headset"
 	keyslot = new /obj/item/device/encryptionkey/heads/hop
 
@@ -177,9 +177,15 @@
 	icon_state = "com_headset_alt"
 	keyslot = new /obj/item/device/encryptionkey/heads/blueshield
 
+/obj/item/device/radio/headset/heads/qm
+	name = "\proper the quartermaster's headset"
+	desc = "The headset of the station's latest head of staff. \nChannels are as follows: :u - supply, :c - command."
+	icon_state = "com_headset"
+	keyslot = new /obj/item/device/encryptionkey/heads/qm
+
 /obj/item/device/radio/headset/headset_cargo
 	name = "supply radio headset"
-	desc = "A headset used by the QM and his slaves. \nTo access the supply channel, use :u."
+	desc = "A headset used by the QM's slaves. \nTo access the supply channel, use :u."
 	icon_state = "cargo_headset"
 	keyslot = new /obj/item/device/encryptionkey/headset_cargo
 
@@ -297,10 +303,3 @@
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
 	return
-
-/obj/item/device/radio/headset/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user) || user.incapacitated())
-		return
-	if (command)
-		use_command = !use_command
-		to_chat(user, "<span class='notice'>You toggle high-volume mode [use_command ? "on" : "off"].</span>")

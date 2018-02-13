@@ -42,6 +42,14 @@
 #define BODYPART_ORGANIC   1
 #define BODYPART_ROBOTIC   2
 
+//Reagent Metabolization flags, defines the type of reagents that affect this mob
+#define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
+#define PROCESS_SYNTHETIC 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
+
+// Reagent type flags, defines the types of mobs this reagent will affect
+#define ORGANIC 1
+#define SYNTHETIC 2
+
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human_parts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
 
@@ -136,7 +144,6 @@
 #define GALOSHES_DONT_HELP 4
 #define SLIDE_ICE 8
 
-#define MAX_CHICKENS 50
 
 #define UNHEALING_EAR_DAMAGE 100
 
@@ -156,3 +163,7 @@
 #define MEGAFAUNA_DEFAULT_RECOVERY_TIME 5
 
 #define SHADOW_SPECIES_LIGHT_THRESHOLD 0.2
+
+//Taste defines
+#define NO_TASTE_SENSITIVITY -1
+#define DEFAULT_TASTE_SENSITIVITY 15

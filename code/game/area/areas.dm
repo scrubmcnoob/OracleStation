@@ -14,6 +14,8 @@
 
 	var/valid_territory = TRUE // If it's a valid territory for gangs to claim
 	var/blob_allowed = TRUE // Does it count for blobs score? By default, all areas count.
+	var/clockwork_warp_allowed = TRUE // Can servants warp into this area from Reebe?
+	var/clockwork_warp_fail = "The structure there is too dense for warping to pierce. (This is normal in high-security areas.)"
 
 	var/eject = null
 
@@ -52,12 +54,7 @@
 
 	var/global/global_uid = 0
 	var/uid
-	var/list/ambientsounds = list('sound/ambience/ambigen1.ogg','sound/ambience/ambigen3.ogg',\
-									'sound/ambience/ambigen4.ogg','sound/ambience/ambigen5.ogg',\
-									'sound/ambience/ambigen6.ogg','sound/ambience/ambigen7.ogg',\
-									'sound/ambience/ambigen8.ogg','sound/ambience/ambigen9.ogg',\
-									'sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg',\
-									'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
+	var/list/ambientsounds = GENERIC
 	flags_1 = CAN_BE_DIRTY_1
 
 	var/list/firedoors
@@ -449,10 +446,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 		if(!L.client.played)
 			SEND_SOUND(L, sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE))
-			L.client.played = 1
-			sleep(600)			//ewww - this is very very bad
-			if(L.&& L.client)
-				L.client.played = 0
+			L.client.played = TRUE
+			addtimer(CALLBACK(L.client, /client/proc/ResetAmbiencePlayed), 600)
+
+/client/proc/ResetAmbiencePlayed()
+	played = FALSE
 
 /atom/proc/has_gravity(turf/T)
 	if(!T || !isturf(T))

@@ -15,7 +15,7 @@
 		real_name = name
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
-	faction += "\ref[src]"
+	faction += "[REF(src)]"
 
 
 /mob/living/prepare_huds()
@@ -355,7 +355,6 @@
 	if(stat == DEAD && can_be_revived()) //in some cases you can't revive (e.g. no brain)
 		GLOB.dead_mob_list -= src
 		GLOB.living_mob_list += src
-		suiciding = 0
 		stat = UNCONSCIOUS //the mob starts unconscious,
 		blind_eyes(1)
 		updatehealth() //then we check if the mob should wake up.
@@ -363,7 +362,7 @@
 		update_sight()
 		clear_alert("not_enough_oxy")
 		reload_fullscreen()
-		. = 1
+		. = TRUE
 		if(mind)
 			for(var/S in mind.spell_list)
 				var/obj/effect/proc_holder/spell/spell = S
@@ -694,6 +693,7 @@
 						who.equip_to_slot(what, where, TRUE)
 
 /mob/living/singularity_pull(S, current_size)
+	..()
 	if(current_size >= STAGE_SIX)
 		throw_at(S,14,3, spin=1)
 	else
@@ -886,7 +886,7 @@
 		on_fire = 1
 		src.visible_message("<span class='warning'>[src] catches fire!</span>", \
 						"<span class='userdanger'>You're set on fire!</span>")
-		src.set_light(3)
+		new/obj/effect/dummy/fire(src)
 		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
 		return TRUE
@@ -896,7 +896,8 @@
 	if(on_fire)
 		on_fire = 0
 		fire_stacks = 0
-		src.set_light(0)
+		for(var/obj/effect/dummy/fire/F in src)
+			qdel(F)
 		clear_alert("fire")
 		update_fire()
 

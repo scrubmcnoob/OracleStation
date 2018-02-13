@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(mapping)
 	var/space_zlevels = list()
 	for(var/i in ZLEVEL_SPACEMIN to ZLEVEL_SPACEMAX)
 		switch(i)
-			if(ZLEVEL_MINING, ZLEVEL_LAVALAND, ZLEVEL_EMPTY_SPACE, ZLEVEL_TRANSIT)
+			if(ZLEVEL_MINING, ZLEVEL_LAVALAND, ZLEVEL_EMPTY_SPACE, ZLEVEL_TRANSIT, ZLEVEL_CITYOFCOGS)
 				continue
 			else
 				space_zlevels += i
@@ -124,7 +124,7 @@ SUBSYSTEM_DEF(mapping)
 		query_round_map_name.Execute()
 
 	if(config.minetype != "lavaland")
-		INIT_ANNOUNCE("WARNING: A map without lavaland set as it's minetype was loaded! This is being ignored! Update the maploader code!")
+		INIT_ANNOUNCE("WARNING: A map without lavaland set as its minetype was loaded! This is being ignored! Update the maploader code!")
 
 	CreateSpace(ZLEVEL_SPACEMAX)
 

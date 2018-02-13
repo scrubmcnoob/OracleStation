@@ -6,7 +6,9 @@
 	layer = BELOW_MOB_LAYER
 	var/splatter_type = "splatter"
 
-/obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, set_dir)
+/obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, set_dir, new_color)
+	if(new_color)
+		color = new_color
 	if(set_dir in GLOB.diagonals)
 		icon_state = "[splatter_type][pick(1, 2, 6)]"
 	else
@@ -213,7 +215,7 @@
 /obj/effect/temp_visual/fire
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "3"
-	light_range = 3
+	light_range = LIGHT_RANGE_FIRE
 	light_color = LIGHT_COLOR_FIRE
 	duration = 10
 

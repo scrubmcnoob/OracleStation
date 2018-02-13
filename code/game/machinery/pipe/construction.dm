@@ -69,18 +69,16 @@ Buildable meters
 	return ..()
 
 /obj/item/pipe/proc/setPipingLayer(new_layer = PIPING_LAYER_DEFAULT)
-	var/obj/machinery/atmospherics/fakeA = get_pipe_cache(pipe_type)
+	var/obj/machinery/atmospherics/fakeA = SSair.get_pipe_cache(pipe_type)
 
 	if(fakeA.pipe_flags & PIPING_ALL_LAYER)
 		new_layer = PIPING_LAYER_DEFAULT
 	piping_layer = new_layer
 
-	pixel_x += (piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_P_X
-	pixel_y += (piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_P_Y
 	layer = initial(layer) + ((piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_LCHANGE)
 
 /obj/item/pipe/proc/update()
-	var/obj/machinery/atmospherics/A = get_pipe_cache(pipe_type)
+	var/obj/machinery/atmospherics/A = SSair.get_pipe_cache(pipe_type)
 	name = "[A.name] fitting"
 	icon_state = A.pipe_state
 
@@ -147,17 +145,6 @@ Buildable meters
 /obj/item/pipe/attack_self(mob/user)
 	return rotate()
 
-/obj/item/pipe/proc/get_pipe_cache(type, direction)
-	var/static/list/obj/machinery/atmospherics/check_cache
-	if(!islist(check_cache))
-		check_cache = list()
-	if(!check_cache[type])
-		check_cache[type] = list()
-	if(!check_cache[type]["[direction]"])
-		check_cache[type]["[direction]"] = new type(null, null, direction)
-
-	return check_cache[type]["[direction]"]
-
 /obj/item/pipe/attackby(obj/item/W, mob/user, params)
 	if (!istype(W, /obj/item/wrench))
 		return ..()
@@ -167,7 +154,7 @@ Buildable meters
 
 	fixdir()
 
-	var/obj/machinery/atmospherics/fakeA = get_pipe_cache(pipe_type, dir)
+	var/obj/machinery/atmospherics/fakeA = SSair.get_pipe_cache(pipe_type, dir)
 
 	for(var/obj/machinery/atmospherics/M in loc)
 		if((M.pipe_flags & fakeA.pipe_flags & PIPING_ONE_PER_TURF))	//Only one dense/requires density object per tile, eg connectors/cryo/heater/coolers.
@@ -203,18 +190,6 @@ Buildable meters
 	..()
 	T.flipped = flipped
 
-/obj/item/pipe/directional/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] shoves [src] in [user.p_their()] mouth and turns it on! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		for(var/i=1 to 20)
-			C.vomit(0, TRUE, FALSE, 4, FALSE)
-			if(prob(20))
-				C.spew_organ()
-			sleep(5)
-		C.blood_volume = 0
-	return(OXYLOSS|BRUTELOSS)
-
 /obj/item/pipe_meter
 	name = "meter"
 	desc = "A meter that can be laid on pipes"
@@ -249,5 +224,3 @@ Buildable meters
 
 /obj/item/pipe_meter/proc/setAttachLayer(new_layer = PIPING_LAYER_DEFAULT)
 	piping_layer = new_layer
-	pixel_x = (new_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_P_X
-	pixel_y = (new_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_P_Y

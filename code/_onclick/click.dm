@@ -323,7 +323,7 @@
 		ML.pulled(src)
 
 /mob/living/carbon/human/CtrlClick(mob/user)
-	if(ishuman(user) && Adjacent(user))
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated())
 		if(world.time < user.next_move)
 			return FALSE
 		var/mob/living/carbon/human/H = user
@@ -354,7 +354,6 @@
 		else
 			user.listed_turf = T
 			user.client.statpanel = T.name
-	user.Stat() //responsive ui pls
 
 /mob/proc/TurfAdjacent(turf/T)
 	return T.Adjacent(src)
